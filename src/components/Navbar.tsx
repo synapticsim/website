@@ -17,7 +17,7 @@ export function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50" style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderBottom: '1px solid transparent', borderImage: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent) 1' }}>
       <div className="section-container">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 md:grid md:grid-cols-3">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -25,8 +25,8 @@ export function Navbar() {
             <span className="font-semibold text-white tracking-tight">Synaptic Simulations</span>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          {/* Desktop Nav — truly centered */}
+          <nav className="hidden md:flex items-center justify-center gap-1">
             {navLinks.map((link) =>
               link.external ? (
                 <a
@@ -55,7 +55,7 @@ export function Navbar() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center justify-end gap-3">
             <a
               href="https://discord.gg/synaptic"
               target="_blank"

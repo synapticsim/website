@@ -24,7 +24,7 @@ export function Footer() {
             <Link href="/" className="flex items-center gap-3 mb-4 group w-fit">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/logo.svg" alt="Synaptic Simulations logo" width={28} height={28} className="opacity-70 group-hover:opacity-100 transition-opacity" />
-              <span className="font-semibold text-white">Synaptic Simulations</span>
+              <span className="font-semibold text-white opacity-70 group-hover:opacity-100 transition-opacity">Synaptic Simulations</span>
             </Link>
             <p className="text-white/50 text-sm leading-relaxed max-w-xs">
               Home of the A220 for Microsoft Flight Simulator.

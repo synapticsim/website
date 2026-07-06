@@ -12,6 +12,7 @@ const newsItems = [
     category: 'Development Update',
     title: 'Synaptic A220 Development Update — June 2026',
     summary: 'FSExpo 2026 wrap-up, a fully rewritten FMS, CAT III autoland, RNP/AR approaches, detailed visuals, the iconic engine howl by Echo19, and a look at what remains before release.',
+    image: '/news/june-2026.png',
     featured: true,
   },
   {
@@ -20,6 +21,7 @@ const newsItems = [
     category: 'Development Update',
     title: 'Synaptic A220 — FSExpo Update',
     summary: 'New system implementations, visual polish, and community-facing features. Plus the announcement of a sound design partnership with Echo19.',
+    image: '/news/For2ndPost.png',
     featured: false,
   },
   {
@@ -28,14 +30,7 @@ const newsItems = [
     category: 'Development Update',
     title: 'Synaptic A220 — April 2025 Update',
     summary: 'High-fidelity exterior and interior modeling, emergent systems behavior, a fully custom electrical system with 646 components, custom flight control laws, Navigraph integration, the MKP, and plug-and-play checklists.',
-    featured: false,
-  },
-  {
-    url: 'https://forum.inibuilds.com/topic/22893-state-of-avionics-update-synaptic-a22x/',
-    date: 'April 29, 2024',
-    category: 'Development Update',
-    title: 'State of Avionics Update | Synaptic A22X',
-    summary: 'Lead avionics developer Mike provides insight into new avionics feature additions: ACE software, CPDLC integration, A220 checklists, and graphical flight planning.',
+    image: '/news/april-2025.png',
     featured: false,
   },
   {
@@ -44,6 +39,7 @@ const newsItems = [
     category: 'Announcement',
     title: 'Statement from Synaptic Simulations — Synaptic A22X Project Future',
     summary: 'Synaptic Simulations announces the transition to a paid add-on, a partnership with iniBuilds, and the upcoming release of the A220 for both desktop and Xbox editions of Microsoft Flight Simulator.',
+    image: '/screenshots/1.png',
     featured: false,
   },
 ];
@@ -71,52 +67,83 @@ export default function NewsPage() {
       </section>
 
       <div className="section-container pb-24">
+        {/* Featured */}
         {featured && (
-          <div className="mb-12">
+          <div className="mb-10">
             <a href={featured.url} target="_blank" rel="noreferrer" className="group block">
-              <div className="card-surface p-8 hover:border-white/20 transition-all">
-                <div className="flex flex-wrap items-center gap-3 mb-4">
-                  <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${categoryColors[featured.category] ?? 'text-white/50 bg-white/5 border-white/10'}`}>
-                    {featured.category}
-                  </span>
-                  <span className="text-xs text-white/30">Latest</span>
+              <div
+                className="card-surface overflow-hidden hover:border-white/20 transition-all"
+                style={{ display: 'grid', gridTemplateRows: 'auto 1fr' }}
+              >
+                {/* Banner image */}
+                <div className="relative overflow-hidden" style={{ height: '280px' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={featured.image}
+                    alt=""
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(5,4,20,0.7) 0%, transparent 60%)' }} />
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 group-hover:text-violet-400 transition-colors">
-                  {featured.title}
-                </h2>
-                <p className="text-white/60 leading-relaxed mb-6 max-w-2xl">{featured.summary}</p>
-                <div className="flex items-center justify-between flex-wrap gap-4">
-                  <span className="text-sm text-white/30">{featured.date}</span>
-                  <span className="text-sm text-violet-400 font-medium flex items-center gap-1.5">
-                    Read on iniBuilds forum
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-                    </svg>
-                  </span>
+                {/* Content */}
+                <div className="p-7">
+                  <div className="flex flex-wrap items-center gap-3 mb-3">
+                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${categoryColors[featured.category] ?? 'text-white/50 bg-white/5 border-white/10'}`}>
+                      {featured.category}
+                    </span>
+                    <span className="text-xs text-white/30">Latest</span>
+                  </div>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 group-hover:text-violet-400 transition-colors">
+                    {featured.title}
+                  </h2>
+                  <p className="text-white/60 leading-relaxed mb-5 max-w-3xl">{featured.summary}</p>
+                  <div className="flex items-center justify-between flex-wrap gap-4">
+                    <span className="text-sm text-white/30">{featured.date}</span>
+                    <span className="text-sm text-violet-400 font-medium flex items-center gap-1.5">
+                      Read on iniBuilds forum
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+                      </svg>
+                    </span>
+                  </div>
                 </div>
               </div>
             </a>
           </div>
         )}
 
+        {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {rest.map((item) => (
             <a key={item.url} href={item.url} target="_blank" rel="noreferrer" className="group block">
-              <div className="card-surface p-6 hover:border-white/20 transition-all h-full">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${categoryColors[item.category] ?? 'text-white/50 bg-white/5 border-white/10'}`}>
-                    {item.category}
-                  </span>
+              <div className="card-surface overflow-hidden hover:border-white/20 transition-all h-full flex flex-col">
+                {/* Thumbnail */}
+                <div className="relative overflow-hidden flex-shrink-0" style={{ height: '180px' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.image}
+                    alt=""
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(5,4,20,0.5) 0%, transparent 60%)' }} />
                 </div>
-                <h3 className="font-semibold text-white text-lg mb-2 group-hover:text-violet-400 transition-colors leading-snug">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-white/50 leading-relaxed mb-4">{item.summary}</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-white/30">{item.date}</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/25 group-hover:text-violet-400 transition-all">
-                    <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-                  </svg>
+                {/* Content */}
+                <div className="p-5 flex flex-col flex-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${categoryColors[item.category] ?? 'text-white/50 bg-white/5 border-white/10'}`}>
+                      {item.category}
+                    </span>
+                  </div>
+                  <h3 className="font-semibold text-white text-lg mb-2 group-hover:text-violet-400 transition-colors leading-snug">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-white/50 leading-relaxed mb-4 flex-1">{item.summary}</p>
+                  <div className="flex items-center justify-between mt-auto">
+                    <span className="text-xs text-white/30">{item.date}</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/25 group-hover:text-violet-400 transition-all">
+                      <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </div>
                 </div>
               </div>
             </a>

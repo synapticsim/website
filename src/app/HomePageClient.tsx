@@ -55,14 +55,22 @@ function ScrollZoomHero() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const progress = useScrollProgress(containerRef);
-  const eased = easeInOutCubic(progress);
 
-  const scale = lerp(0.44, 1.05, eased);
-  const glowOpacity = lerp(0.05, 0.82, eased);
-  const subOpacity = clamp((progress - 0.3) / 0.3, 0, 1);
+  // Phase 0 (0–12%):   dead zone — nothing moves
+  // Phase 1 (12–50%):  video zooms out, UI stays put
+  // Phase 2 (50–88%):  video plays, UI animates in
+  // Phase 3 (88–100%): dead zone — everything frozen at final state
+
+  const zoomProgress = clamp((progress - 0.12) / 0.38, 0, 1);
+  const videoScale = lerp(1.75, 1.0, easeInOutCubic(zoomProgress));
+
+  const uiProgress = clamp((progress - 0.50) / 0.38, 0, 1);
+  const uiEased = easeInOutCubic(uiProgress);
+
+  const scale = lerp(0.44, 1.05, uiEased);
+  const glowOpacity = lerp(0.05, 0.82, uiEased);
+  const subOpacity = clamp((uiProgress - 0.4) / 0.35, 0, 1);
   const scrollHintOpacity = clamp(1 - progress * 7, 0, 1);
-  const logoGlowBlur = lerp(8, 48, eased);
-  const logoGlowAlpha = lerp(0.2, 0.9, eased);
 
   // Sync video currentTime to scroll progress — only play first half of the clip
   useEffect(() => {
@@ -70,7 +78,7 @@ function ScrollZoomHero() {
     if (!video) return;
     const sync = () => {
       if (video.readyState >= 2 && video.duration) {
-        video.currentTime = progress * (video.duration * 0.5);
+        video.currentTime = clamp((progress - 0.50) / 0.38, 0, 1) * (video.duration * 0.5);
       }
     };
     sync();
@@ -79,8 +87,8 @@ function ScrollZoomHero() {
     return () => video.removeEventListener('loadedmetadata', sync);
   }, [progress]);
 
-  // Wordmark starts nearly invisible, becomes fully opaque as scroll nears end
-  const wordmarkOpacity = lerp(0.08, 1, eased);
+  // Wordmark fades in when phase 2 starts
+  const wordmarkOpacity = clamp(uiProgress / 0.4, 0, 1);
 
   return (
     <div ref={containerRef} style={{ height: '320vh' }} className="relative">
@@ -92,35 +100,44 @@ function ScrollZoomHero() {
           preload="auto"
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-          style={{ opacity: 0.52, filter: 'brightness(1.5) contrast(1.1)' }}
+          className="absolute inset-0 w-full h-full object-contain md:object-cover pointer-events-none"
+          style={{ opacity: lerp(0.59, 0.82, uiEased), filter: `brightness(${lerp(1.69, 2.6, uiEased)}) contrast(1.05)`, transform: `scale(${videoScale})`, transformOrigin: '50% 45%', willChange: 'transform' }}
         />
 
-        {/* Halo ring — transparent center, soft glow at outer band */}
+        {/* Soft edge vignette — no ring, just feathered darkness */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            opacity: glowOpacity * 0.7,
+            opacity: glowOpacity,
             background:
-              'radial-gradient(ellipse 90% 90% at 50% 50%, transparent 42%, rgba(61,21,237,0.45) 66%, rgba(102,0,159,0.28) 82%, transparent 100%)',
+              'radial-gradient(ellipse 80% 80% at 50% 50%, transparent 45%, rgba(2,2,10,0.75) 100%)',
           }}
         />
-        {/* Left edge glow */}
+        {/* Bottom bloom */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            opacity: glowOpacity * 0.63,
+            opacity: glowOpacity,
             background:
-              'radial-gradient(ellipse 32% 80% at 0% 50%, rgba(61,21,237,0.6), transparent 75%)',
+              'radial-gradient(ellipse 70% 50% at 50% 100%, rgba(61,21,237,0.35), transparent 65%)',
           }}
         />
-        {/* Right edge glow */}
+        {/* Left bloom */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            opacity: glowOpacity * 0.63,
+            opacity: glowOpacity * 0.5,
             background:
-              'radial-gradient(ellipse 32% 80% at 100% 50%, rgba(102,0,159,0.55), transparent 75%)',
+              'radial-gradient(ellipse 40% 70% at 0% 60%, rgba(61,21,237,0.4), transparent 70%)',
+          }}
+        />
+        {/* Right bloom */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            opacity: glowOpacity * 0.5,
+            background:
+              'radial-gradient(ellipse 40% 70% at 100% 60%, rgba(102,0,159,0.4), transparent 70%)',
           }}
         />
 
@@ -129,72 +146,73 @@ function ScrollZoomHero() {
           className="flex flex-col items-center select-none"
           style={{ transform: `scale(${scale})`, willChange: 'transform' }}
         >
-          {/* S logo mark + label — drift upward as scroll progresses */}
+          {/* Wordmark — drifts in from above, sits above the plane */}
           <div
             className="flex flex-col items-center"
-            style={{ transform: `translateY(${lerp(-140, -60, eased)}px)` }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/logo.svg"
-              alt="Synaptic Simulations"
-              width={68}
-              height={110}
-              className="mb-7"
-              style={{
-                filter: `drop-shadow(0 0 ${logoGlowBlur}px rgba(61,21,237,${logoGlowAlpha}))`,
-              }}
-            />
-            {/* Company name */}
-            <p className="text-sm font-bold tracking-tight text-white mb-4">
-              Synaptic Simulations
-            </p>
-          </div>
-
-          {/* Main wordmark + tagline/badge — drift downward */}
-          <div
-            className="flex flex-col items-center"
-            style={{ transform: `translateY(${lerp(160, 60, eased)}px)` }}
+            style={{ transform: `translateY(${lerp(-200, -160, uiEased)}px)` }}
           >
             {/* Wordmark */}
             <div
-              className="leading-none font-black tracking-tighter text-center pb-3"
+              className="leading-none font-black tracking-tighter text-center select-none"
               style={{
-                fontSize: 'clamp(52px, 10vw, 152px)',
+                fontSize: 'clamp(40px, 7.5vw, 110px)',
+                paddingBottom: '0.15em',
                 background: 'linear-gradient(158deg, #ffffff 22%, rgba(190,160,255,0.88) 60%, rgba(200,104,235,0.82) 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
                 opacity: wordmarkOpacity,
-                filter: `drop-shadow(0 0 ${lerp(28, 0, eased)}px rgba(120,40,255,${lerp(0.9, 0, eased)})) drop-shadow(0 0 ${lerp(52, 0, eased)}px rgba(102,0,159,${lerp(0.5, 0, eased)}))`,
               }}
             >
               Synaptic A220
             </div>
+          </div>
 
+          {/* Tagline + status — drift up from below, sits under the plane */}
+          <div
+            className="flex flex-col items-center"
+            style={{ transform: `translateY(${lerp(200, 140, uiEased)}px)` }}
+          >
             {/* Tagline — fades in mid-scroll */}
-            <p
-              className="mt-6 text-center text-white/50 font-light"
+            <div
+              className="leading-none font-black tracking-tighter text-center"
               style={{
-                fontSize: 'clamp(14px, 1.8vw, 22px)',
-                maxWidth: '520px',
+                fontSize: 'clamp(16px, 2.2vw, 38px)',
+                paddingBottom: '0.15em',
+                background: 'linear-gradient(158deg, #ffffff 22%, rgba(190,160,255,0.88) 60%, rgba(200,104,235,0.82) 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
                 opacity: subOpacity,
                 transform: `translateY(${lerp(16, 0, subOpacity)}px)`,
               }}
             >
               For Microsoft Flight Simulator 2020 &amp; 2024
-            </p>
+            </div>
 
-            {/* Status */}
-            <p
-              className="mt-5 text-sm text-violet-400/70 font-medium tracking-widest"
+            {/* Status — outer wrapper controls fade/translate, inner controls pulse */}
+            <div
+              className="mt-4"
               style={{
                 opacity: subOpacity,
                 transform: `translateY(${lerp(10, 0, subOpacity)}px)`,
               }}
             >
-              Coming Summer 2026
-            </p>
+              <div
+                className="font-black tracking-tighter text-center"
+                style={{
+                  fontSize: 'clamp(16px, 2.2vw, 36px)',
+                  paddingBottom: '0.15em',
+                  background: 'linear-gradient(158deg, rgba(150,100,255,0.9) 0%, rgba(200,104,235,0.95) 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  animation: 'shimmerPulse 2.2s ease-in-out infinite',
+                }}
+              >
+                Coming Summer 2026
+              </div>
+            </div>
           </div>
         </div>
 
@@ -278,21 +296,6 @@ function TrailerSection() {
       className={`pt-8 pb-24 relative transition-all duration-1000 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
     >
       <div className="section-container">
-        <div className="text-center mb-10">
-          <p className="text-violet-400/80 text-xs font-semibold uppercase tracking-[0.3em] mb-4">Official Trailer</p>
-          <h2
-            className="font-black tracking-tight"
-            style={{
-              fontSize: 'clamp(28px, 4vw, 56px)',
-              background: 'linear-gradient(160deg, #ffffff 30%, rgba(210,170,255,0.9) 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >
-            Definitive Trailer
-          </h2>
-        </div>
         <div
           className="relative w-full mx-auto rounded-2xl overflow-hidden"
           style={{
@@ -338,7 +341,7 @@ function FeatureListSection() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      className={`pb-24 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+      className={`pb-12 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
     >
       <div className="section-container">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-4xl mx-auto">
@@ -383,7 +386,7 @@ function ShowcaseSection() {
   const [expanded, setExpanded] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  const INITIAL_COUNT = 9;
+  const INITIAL_COUNT = 10;
   const displayedFiles = expanded ? screenshotFiles : screenshotFiles.slice(0, INITIAL_COUNT);
 
   useEffect(() => {
@@ -401,12 +404,11 @@ function ShowcaseSection() {
     <>
       <section
         ref={ref as React.RefObject<HTMLElement>}
-      className={`py-28 transition-all duration-700 ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      className={`py-16 transition-all duration-700 ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
       style={{ borderTop: '1px solid transparent', borderImage: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent) 1' }}
       >
         <div className="section-container">
-          <div className="text-center mb-14">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-violet-400 mb-4">The Aircraft</p>
+          <div className="text-center mb-10">
             <h2
               className="font-black tracking-tight"
               style={{
@@ -417,7 +419,7 @@ function ShowcaseSection() {
                 backgroundClip: 'text',
               }}
             >
-              The Synaptic A220
+              A220
             </h2>
           </div>
 
@@ -461,7 +463,7 @@ function ShowcaseSection() {
             {!expanded && screenshotFiles.length > INITIAL_COUNT && (
               <div
                 className="absolute -top-32 left-0 right-0 h-32 pointer-events-none"
-                style={{ background: 'linear-gradient(to top, #000000 0%, transparent 100%)' }}
+                style={{ background: 'linear-gradient(to top, #02020a 0%, transparent 100%)' }}
               />
             )}
             {!expanded && screenshotFiles.length > INITIAL_COUNT && (
@@ -575,7 +577,7 @@ function ShowcaseSection() {
 const platforms = [
   {
     name: 'Discord',
-    description: 'Join 20,000+ community members. Development updates, screenshots, and direct team access.',
+    description: 'Join 20,000+ community members. Development updates, screenshots, and a direct channel with the Synaptic team.',
     href: 'https://discord.gg/synaptic',
     stat: '20,000+ Members',
     icon: (
@@ -627,7 +629,7 @@ function CommunitySection() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      className={`py-28 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      className={`pt-16 pb-16 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
       style={{ borderTop: '1px solid transparent', borderImage: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent) 1' }}
     >
       <div className="section-container">
