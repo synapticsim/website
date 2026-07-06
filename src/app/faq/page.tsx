@@ -1,11 +1,14 @@
 import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
 
 export const metadata: Metadata = {
   title: 'FAQ',
   description: 'Frequently asked questions about the Synaptic A220',
 };
 
-const faqs = [
+const iniLink = <a href="https://inibuilds.com/" target="_blank" rel="noreferrer" className="text-violet-400 hover:text-violet-300 underline underline-offset-2 transition-colors">iniBuilds</a>;
+
+const faqs: { category: string; items: { q: string; a: ReactNode }[] }[] = [
   {
     category: 'The Aircraft',
     items: [
@@ -23,7 +26,7 @@ const faqs = [
       },
       {
         q: 'Will there be liveries?',
-        a: 'Yes, in conjuction with the iniBuilds livery team, we plan to ship a selection of real-world airline liveries at launch.',
+        a: <span>Yes, in conjunction with the {iniLink} livery team, we plan to ship a selection of real-world airline liveries at launch.</span>,
       },
     ],
   },
@@ -32,15 +35,15 @@ const faqs = [
     items: [
       {
         q: 'When will the Synaptic A220 be released?',
-        a: "The Synaptic A220 is planned for release in 2026.",
+        a: "The Synaptic A220 is planned for release in summer of 2026.",
       },
       {
         q: 'Why has development taken this long?',
-        a: 'A lot of core systems on the Synaptic A220 have been re-written over the course of the project to achieve our standards for accuracy and performance.',
+        a: 'The Synaptic team has rebuilt the 3D model with incredible accuracy from the ground up over the past few years, and all core aircraft systems have been rewritten to achieve our standards for accuracy and performance.',
       },
       {
         q: "What is the team's relationship with iniBuilds?",
-        a: 'iniBuilds are our publishing partner for the Synaptic A220. They are also responsible for developing the developing the animations, textures, sounds (in collaboration with Echo19), and EFB for the Synaptic A220.',
+        a: <span>{iniLink} are our publishing partner for the Synaptic A220. They are also responsible for the animations, textures, sounds (in collaboration with Echo19), and EFB for the Synaptic A220.</span>,
       },
       {
         q: 'Will there be Hoppie integration?',
@@ -71,7 +74,7 @@ const faqs = [
     items: [
       {
         q: 'Where can I follow development?',
-        a: 'The primary channel is the Discord server (discord.gg/synaptic). Development updates, live demos, and announcements are also posted on YouTube (@SynapticSimulations) and Twitter (@SynapticSim).',
+        a: <span>Our primary channel to follow development is the <a href="https://discord.gg/synaptic" target="_blank" rel="noreferrer" className="text-violet-400 hover:text-violet-300 underline underline-offset-2 transition-colors">Synaptic Discord server</a>. Development updates, live demos, and announcements are also posted on <a href="https://www.instagram.com/synapticsim/" target="_blank" rel="noreferrer" className="text-violet-400 hover:text-violet-300 underline underline-offset-2 transition-colors">Instagram</a>, <a href="https://youtube.com/@SynapticSimulations" target="_blank" rel="noreferrer" className="text-violet-400 hover:text-violet-300 underline underline-offset-2 transition-colors">YouTube</a>, and <a href="https://twitter.com/SynapticSim" target="_blank" rel="noreferrer" className="text-violet-400 hover:text-violet-300 underline underline-offset-2 transition-colors">Twitter</a>.</span>,
       },
 
     ],
@@ -129,7 +132,7 @@ export default function FAQPage() {
                       </svg>
                     </summary>
                     <div className="px-6 pb-6">
-                      <p className="text-white/60 leading-relaxed text-sm border-t border-white/10 pt-4">{item.a}</p>
+                      <div className="text-white/60 leading-relaxed text-sm border-t border-white/10 pt-4">{item.a}</div>
                     </div>
                   </details>
                 ))}

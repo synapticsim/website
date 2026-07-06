@@ -4,15 +4,13 @@ const footerLinks = {
   Product: [
     { label: 'FAQ', href: '/faq' },
   ],
-  Company: [
-    { label: 'About', href: '/about' },
-    { label: 'News', href: '/news' },
-  ],
   Community: [
     { label: 'Discord', href: 'https://discord.gg/synaptic', external: true },
+    { label: 'Instagram', href: 'https://www.instagram.com/synapticsim/', external: true },
     { label: 'GitHub', href: 'https://github.com/synapticsim', external: true },
     { label: 'YouTube', href: 'https://youtube.com/@SynapticSimulations', external: true },
     { label: 'X / Twitter', href: 'https://twitter.com/SynapticSim', external: true },
+    { label: 'News', href: 'https://forum.inibuilds.com/profile/42191-synaptic-simulations/?wr=eyJhcHAiOiJmb3J1bXMiLCJtb2R1bGUiOiJmb3J1bXMiLCJpZF8xIjoyOTk5Nn0=', external: true },
   ],
 };
 
@@ -29,8 +27,7 @@ export function Footer() {
               <span className="font-semibold text-white">Synaptic Simulations</span>
             </Link>
             <p className="text-white/50 text-sm leading-relaxed max-w-xs">
-              Developing a high-fidelity Synaptic A220 for Microsoft Flight Simulator 2020 and 2024,
-              crafted to the highest professional standards.
+              Home of the A220 for Microsoft Flight Simulator.
             </p>
             <div className="flex items-center gap-3 mt-6">
               {[
@@ -38,8 +35,19 @@ export function Footer() {
                   href: 'https://discord.gg/synaptic',
                   label: 'Discord',
                   icon: (
-                    <svg width="18" height="18" viewBox="0 0 15 15" fill="currentColor">
-                      <path fillRule="evenodd" clipRule="evenodd" d="M5.07451 1.82584C5.03267 1.81926 4.99014 1.81825 4.94803 1.82284C4.10683 1.91446 2.82673 2.36828 2.07115 2.77808C2.02106 2.80525 1.97621 2.84112 1.93869 2.88402C1.62502 3.24266 1.34046 3.82836 1.11706 4.38186C0.887447 4.95076 0.697293 5.55032 0.588937 5.98354C0.236232 7.39369 0.042502 9.08728 0.0174948 10.6925C0.0162429 10.7729 0.0351883 10.8523 0.0725931 10.9234C0.373679 11.496 1.02015 12.027 1.66809 12.4152C2.32332 12.8078 3.08732 13.1182 3.70385 13.1778C3.85335 13.1922 4.00098 13.1358 4.10282 13.0255C4.2572 12.8581 4.5193 12.4676 4.71745 12.1643C4.80739 12.0267 4.89157 11.8953 4.95845 11.7901C5.62023 11.9106 6.45043 11.9801 7.50002 11.9801C8.54844 11.9801 9.37796 11.9107 10.0394 11.7905C10.1062 11.8957 10.1903 12.0269 10.2801 12.1643C10.4783 12.4676 10.7404 12.8581 10.8947 13.0255C10.9966 13.1358 11.1442 13.1922 11.2937 13.1778C11.9102 13.1182 12.6742 12.8078 13.3295 12.4152C13.9774 12.027 14.6239 11.496 14.925 10.9234C14.9624 10.8523 14.9813 10.7729 14.9801 10.6925C14.9551 9.08728 14.7613 7.39369 14.4086 5.98354C14.3003 5.55032 14.1101 4.95076 13.8805 4.38186C13.6571 3.82836 13.3725 3.24266 13.0589 2.88402C13.0214 2.84112 12.9765 2.80525 12.9264 2.77808C12.1708 2.36828 10.8907 1.91446 10.0495 1.82284C10.0074 1.81825 9.96489 1.81926 9.92305 1.82584C9.71676 1.85825 9.5391 1.96458 9.40809 2.06355C9.26977 2.16804 9.1413 2.29668 9.0304 2.42682C8.86968 2.61544 8.7143 2.84488 8.61428 3.06225C8.27237 3.03501 7.90138 3.02 7.5 3.02C7.0977 3.02 6.72593 3.03508 6.38337 3.06244C6.28328 2.84501 6.12792 2.61549 5.96716 2.42682C5.85626 2.29668 5.72778 2.16804 5.58947 2.06355C5.45846 1.96458 5.2808 1.85825 5.07451 1.82584Z"/>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942.0209-.0407.0098-.0895-.0321-.1195-.6519-.2476-1.2754-.5495-1.8784-.8874a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
+                    </svg>
+                  ),
+                },
+                {
+                  href: 'https://www.instagram.com/synapticsim/',
+                  label: 'Instagram',
+                  icon: (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                      <circle cx="12" cy="12" r="4"/>
+                      <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
                     </svg>
                   ),
                 },
@@ -119,12 +127,9 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="border-t border-white/10 mt-12 pt-8 flex items-center justify-center">
           <p className="text-sm text-white/30">
-            &copy; {new Date().getFullYear()} Synaptic Simulations. All rights reserved.
-          </p>
-          <p className="text-sm text-white/30">
-            Not affiliated with Airbus or Microsoft.
+            &copy; 2026 Synaptic Simulations Ltd
           </p>
         </div>
       </div>

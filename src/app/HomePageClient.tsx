@@ -187,13 +187,13 @@ function ScrollZoomHero() {
 
             {/* Status */}
             <p
-              className="mt-5 text-sm text-violet-400/70 font-medium tracking-widest uppercase"
+              className="mt-5 text-sm text-violet-400/70 font-medium tracking-widest"
               style={{
                 opacity: subOpacity,
                 transform: `translateY(${lerp(10, 0, subOpacity)}px)`,
               }}
             >
-              Coming 2026
+              Coming Summer 2026
             </p>
           </div>
         </div>
@@ -230,197 +230,343 @@ function StatementSection() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      className={`py-32 transition-all duration-1000 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+      className={`pt-36 pb-16 relative overflow-hidden transition-all duration-1000 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
     >
-      <div className="section-container text-center">
-        <p className="text-sm font-bold tracking-tight text-white mb-6">
-          Synaptic Simulations
-        </p>
-        <h2
-          className="font-black tracking-tight mx-auto leading-[1.07]"
+      {/* Giant watermark text */}
+      <div
+        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
+        aria-hidden="true"
+      >
+        <span
+          className="font-black tracking-tighter whitespace-nowrap"
           style={{
-            fontSize: 'clamp(28px, 4.2vw, 64px)',
-            maxWidth: '820px',
-            background: 'linear-gradient(155deg, #ffffff 28%, rgba(200,160,255,0.84) 100%)',
+            fontSize: 'clamp(120px, 22vw, 340px)',
+            background: 'linear-gradient(180deg, rgba(61,21,237,0.12) 0%, transparent 80%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}
+        >A220</span>
+      </div>
+      <div className="section-container text-center relative z-10">
+        <h2
+          className="font-black tracking-tight mx-auto leading-[1.1]"
+          style={{
+            fontSize: 'clamp(32px, 5.5vw, 80px)',
+            maxWidth: '900px',
+            paddingBottom: '0.1em',
+            background: 'linear-gradient(160deg, #ffffff 25%, rgba(210,170,255,0.9) 60%, rgba(180,100,255,0.85) 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
           }}
         >
-          The most detailed A220<br />
-          simulation ever built for<br />
-          Microsoft Flight Simulator
+          The most detailed A220<br />simulation ever built for<br />Microsoft Flight Simulator
         </h2>
       </div>
     </section>
   );
 }
 
-// ─── Stats strip ──────────────────────────────────────────────────────────────
+// ─── Trailer section ──────────────────────────────────────────────────────────
 
-function StatsStrip() {
+function TrailerSection() {
   const { ref, visible } = useFadeIn();
-  const stats = [
-    { value: '20,000+', label: 'Discord Members' },
-    { value: '4+', label: 'Years in Development' },
-    { value: 'MSFS 2020', label: 'Platform' },
-    { value: 'MSFS 2024', label: 'Platform' },
-    { value: 'CAT III', label: 'Autoland' },
-    { value: 'Custom FBW', label: 'Fly-By-Wire' },
-  ];
   return (
-    <div
-      ref={ref as React.RefObject<HTMLDivElement>}
-      className={`py-12 border-t border-b transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-      style={{ borderColor: 'rgba(255,255,255,0.06)' }}
+    <section
+      ref={ref as React.RefObject<HTMLElement>}
+      className={`pt-8 pb-24 relative transition-all duration-1000 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
     >
       <div className="section-container">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">
-          {stats.map((s) => (
-            <div key={s.label + s.value} className="text-center">
-              <p className="text-white font-semibold text-sm">{s.value}</p>
-              <p className="text-white/35 text-xs mt-1">{s.label}</p>
+        <div className="text-center mb-10">
+          <p className="text-violet-400/80 text-xs font-semibold uppercase tracking-[0.3em] mb-4">Official Trailer</p>
+          <h2
+            className="font-black tracking-tight"
+            style={{
+              fontSize: 'clamp(28px, 4vw, 56px)',
+              background: 'linear-gradient(160deg, #ffffff 30%, rgba(210,170,255,0.9) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            Definitive Trailer
+          </h2>
+        </div>
+        <div
+          className="relative w-full mx-auto rounded-2xl overflow-hidden"
+          style={{
+            maxWidth: '960px',
+            aspectRatio: '16 / 9',
+            boxShadow: '0 0 80px rgba(61, 21, 237, 0.25), 0 0 0 1px rgba(255,255,255,0.06)',
+          }}
+        >
+          <iframe
+            src="https://www.youtube.com/embed/2eU2yiqG690?rel=0&modestbranding=1&color=white"
+            title="Synaptic A220 — Definitive Trailer"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full border-0"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Feature list ─────────────────────────────────────────────────────────────
+
+const featureItems = [
+  'Custom Flight Management System',
+  'CAT III Autoland',
+  'Custom Fly-By-Wire',
+  'Full LNAV & VNAV',
+  'ILS, LPV, RNP/AR, VOR & LOC approaches',
+  'SimBrief & MSFS EFB uplink',
+  'Graphical flight planning',
+  'Data Concentration System',
+  'Five display units with full reversion',
+  'Circuit breakers',
+  'EICAS & synoptic pages',
+  'Electronic checklists',
+  'Nav-to-nav transfer & ILS mode sequencing',
+  'Detailed 3D model with high-fidelity materials',
+];
+
+function FeatureListSection() {
+  const { ref, visible } = useFadeIn();
+  return (
+    <section
+      ref={ref as React.RefObject<HTMLElement>}
+      className={`pb-24 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+    >
+      <div className="section-container">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-4xl mx-auto">
+          {featureItems.map((feature, i) => (
+            <div
+              key={feature}
+              className="flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 hover:bg-white/[0.03]"
+              style={{
+                border: '1px solid rgba(255,255,255,0.07)',
+                transitionDelay: `${i * 25}ms`,
+                opacity: visible ? 1 : 0,
+                transform: visible ? 'none' : 'translateY(6px)',
+                transition: `opacity 0.5s ease ${i * 25}ms, transform 0.5s ease ${i * 25}ms, background 0.2s ease`,
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="flex-shrink-0">
+                <circle cx="12" cy="12" r="10" stroke="rgba(139,92,246,0.4)" strokeWidth="1.5"/>
+                <polyline points="8 12 11 15 16 9" stroke="rgba(139,92,246,0.9)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <span className="text-white/70 text-sm font-medium">{feature}</span>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
-// ─── Feature section ──────────────────────────────────────────────────────────
+// ─── Showcase section ─────────────────────────────────────────────────────────
 
-function FeatureSection({
-  eyebrow, headline, body, side = 'left', icon,
-}: {
-  eyebrow: string;
-  headline: string;
-  body: string;
-  side?: 'left' | 'right';
-  icon: React.ReactNode;
-}) {
-  const { ref, visible } = useFadeIn();
+const screenshotFiles: string[] = [
+  '1.png', '2.png', '3.png', '4.png', '5.png', '6.png',
+  '7.png', '8.png', '9.png', '10.png', '11.png', '12.png',
+  '13.png', '14.png', '15.png', '16.png', '17.png', '18.png',
+  '19.png', '20.png', '21.png', '22.png', '23.png', '24.png',
+  '25.png', '26.png', '27.png', '28.png', '29.png', '30.png',
+  'image.png', '4 (2).png',
+];
+
+function ShowcaseSection() {
+  const { ref, visible: sectionVisible } = useFadeIn();
+  const [expanded, setExpanded] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  const INITIAL_COUNT = 9;
+  const displayedFiles = expanded ? screenshotFiles : screenshotFiles.slice(0, INITIAL_COUNT);
+
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightboxIndex(null);
+      if (e.key === 'ArrowRight') setLightboxIndex((i) => i === null ? null : (i + 1) % screenshotFiles.length);
+      if (e.key === 'ArrowLeft') setLightboxIndex((i) => i === null ? null : (i - 1 + screenshotFiles.length) % screenshotFiles.length);
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [lightboxIndex]);
+
   return (
-    <section
-      ref={ref as React.RefObject<HTMLElement>}
-      className={`py-28 border-t transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-      style={{ borderColor: 'rgba(255,255,255,0.06)' }}
-    >
-      <div className="section-container">
-        <div className={`flex flex-col gap-16 items-center ${side === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
-          {/* Icon orb */}
-          <div className="w-full md:w-1/2 flex items-center justify-center">
-            <div
-              className="w-44 h-44 rounded-[2.5rem] flex items-center justify-center text-violet-400"
-              style={{
-                background: 'radial-gradient(ellipse at center, rgba(61,21,237,0.18), rgba(102,0,159,0.09) 60%, transparent)',
-                boxShadow: '0 0 80px rgba(61,21,237,0.14), inset 0 0 40px rgba(61,21,237,0.07)',
-                border: '1px solid rgba(61,21,237,0.22)',
-              }}
-            >
-              {icon}
-            </div>
-          </div>
-          {/* Text */}
-          <div className="w-full md:w-1/2">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-violet-400 mb-5">{eyebrow}</p>
+    <>
+      <section
+        ref={ref as React.RefObject<HTMLElement>}
+      className={`py-28 transition-all duration-700 ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      style={{ borderTop: '1px solid transparent', borderImage: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent) 1' }}
+      >
+        <div className="section-container">
+          <div className="text-center mb-14">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-violet-400 mb-4">The Aircraft</p>
             <h2
-              className="font-black tracking-tight mb-6 leading-[1.06] whitespace-pre-line"
+              className="font-black tracking-tight"
               style={{
-                fontSize: 'clamp(32px, 4.2vw, 60px)',
+                fontSize: 'clamp(32px, 4vw, 54px)',
                 background: 'linear-gradient(140deg, #ffffff 38%, rgba(186,152,255,0.82) 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
               }}
             >
-              {headline}
+              The Synaptic A220
             </h2>
-            <p className="text-white/52 text-lg leading-relaxed">{body}</p>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
-// ─── A220 CTA section ─────────────────────────────────────────────────────────
-
-function A220CTASection() {
-  const { ref, visible } = useFadeIn();
-  return (
-    <section
-      ref={ref as React.RefObject<HTMLElement>}
-      className={`py-28 border-t transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-      style={{ borderColor: 'rgba(255,255,255,0.06)' }}
-    >
-      <div className="section-container">
-        <div className="flex flex-col md:flex-row items-center gap-12">
-          {/* Visual */}
-          <div className="w-full md:w-1/2">
-            <div
-              className="relative rounded-2xl overflow-hidden aspect-video flex items-center justify-center"
-              style={{
-                background: 'rgba(255,255,255,0.02)',
-                border: '1px solid rgba(255,255,255,0.07)',
-              }}
-            >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {displayedFiles.map((file, idx) => (
               <div
-                className="absolute inset-0"
-                style={{
-                  background: 'radial-gradient(ellipse at center, rgba(61,21,237,0.12), rgba(102,0,159,0.06) 50%, transparent 72%)',
-                }}
-              />
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/logo.svg" alt="" aria-hidden="true" width={90} height={146} className="opacity-[0.07]" />
-              </div>
-              <div className="relative z-10 text-center">
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" className="mx-auto mb-3">
-                  <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" fill="rgba(255,255,255,0.07)"/>
-                </svg>
-                <p className="text-white/18 text-xs">Screenshots coming soon</p>
-              </div>
-              <div
-                className="absolute bottom-4 left-4 flex items-center gap-2 rounded-lg px-3 py-1.5"
-                style={{ background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.08)' }}
+                key={file}
+                className={`relative group cursor-pointer rounded-xl overflow-hidden ${idx === 0 ? 'md:col-span-2 lg:col-span-3' : ''}`}
+                onClick={() => setLightboxIndex(screenshotFiles.indexOf(file))}
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#3D15ED] animate-pulse" />
-                <span className="text-xs text-white/50">Final testing — 2026</span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`/screenshots/${encodeURIComponent(file)}`}
+                  alt=""
+                  className="w-full aspect-video object-cover block transition-transform duration-500 group-hover:scale-[1.03]"
+                  style={{ border: '1px solid rgba(255,255,255,0.07)' }}
+                />
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50 rounded-full p-3 backdrop-blur-sm">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/>
+                      <line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>
+                    </svg>
+                  </div>
+                </div>
+                {/* S logo watermark */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo.svg"
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute bottom-2.5 left-2.5 w-5 opacity-40 pointer-events-none select-none"
+                />
               </div>
-            </div>
+            ))}
           </div>
 
-          {/* Text */}
-          <div className="w-full md:w-1/2">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-violet-400 mb-5">The aircraft</p>
-            <h2
-              className="font-black tracking-tight mb-6 leading-[1.06]"
-              style={{
-                fontSize: 'clamp(32px, 4vw, 56px)',
-                background: 'linear-gradient(140deg, #ffffff 38%, rgba(186,152,255,0.82) 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              The Synaptic A220.
-            </h2>
-            <p className="text-white/50 text-lg leading-relaxed mb-8">
-              Years in development. Custom FMS, fly-by-wire, full avionics suite, and every aircraft system
-              built from the ground up — no defaults, no shortcuts.
-            </p>
-            <a href="https://discord.gg/synaptic" target="_blank" rel="noreferrer" className="btn-primary">
-              Join Discord
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"/>
-                <polyline points="12 5 19 12 12 19"/>
-              </svg>
-            </a>
+          {/* Bottom fade + expand */}
+          <div className="relative">
+            {!expanded && screenshotFiles.length > INITIAL_COUNT && (
+              <div
+                className="absolute -top-32 left-0 right-0 h-32 pointer-events-none"
+                style={{ background: 'linear-gradient(to top, #000000 0%, transparent 100%)' }}
+              />
+            )}
+            {!expanded && screenshotFiles.length > INITIAL_COUNT && (
+              <div className="text-center mt-8">
+                <button
+                  onClick={() => setExpanded(true)}
+                  className="inline-flex items-center gap-2.5 border border-white/12 text-white/60 hover:text-white hover:border-white/30 font-medium text-sm px-6 py-3 rounded-lg transition-all duration-200 hover:bg-white/5"
+                >
+                  View all {screenshotFiles.length} screenshots
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </button>
+              </div>
+            )}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Lightbox */}
+      {lightboxIndex !== null && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{ background: 'rgba(0,0,0,0.95)', animation: 'fadeInScale 0.2s ease' }}
+          onClick={() => setLightboxIndex(null)}
+        >
+          {/* Main image */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`/screenshots/${encodeURIComponent(screenshotFiles[lightboxIndex])}`}
+            alt=""
+            className="max-h-[80vh] max-w-[88vw] object-contain rounded-xl"
+            style={{ border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 32px 80px rgba(0,0,0,0.8)', animation: 'fadeInUp 0.25s ease' }}
+            onClick={(e) => e.stopPropagation()}
+          />
+
+          {/* Close */}
+          <button
+            className="absolute top-5 right-6 text-white/40 hover:text-white transition-colors w-9 h-9 flex items-center justify-center rounded-full hover:bg-white/10"
+            onClick={() => setLightboxIndex(null)}
+            aria-label="Close"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+
+          {/* Prev */}
+          <button
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors p-3 rounded-full hover:bg-white/8"
+            aria-label="Previous"
+            onClick={(e) => { e.stopPropagation(); setLightboxIndex((lightboxIndex - 1 + screenshotFiles.length) % screenshotFiles.length); }}
+          >
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+
+          {/* Next */}
+          <button
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors p-3 rounded-full hover:bg-white/8"
+            aria-label="Next"
+            onClick={(e) => { e.stopPropagation(); setLightboxIndex((lightboxIndex + 1) % screenshotFiles.length); }}
+          >
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+
+          {/* Thumbnail filmstrip */}
+          <div
+            className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {(() => {
+              const half = 3;
+              const start = Math.max(0, Math.min(lightboxIndex - half, screenshotFiles.length - (half * 2 + 1)));
+              return screenshotFiles.slice(start, start + half * 2 + 1).map((f, i) => {
+                const actualIdx = start + i;
+                return (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    key={f}
+                    src={`/screenshots/${encodeURIComponent(f)}`}
+                    alt=""
+                    onClick={() => setLightboxIndex(actualIdx)}
+                    className="object-cover rounded cursor-pointer flex-shrink-0 transition-all duration-200"
+                    style={{
+                      width: actualIdx === lightboxIndex ? 64 : 48,
+                      height: actualIdx === lightboxIndex ? 40 : 30,
+                      opacity: actualIdx === lightboxIndex ? 1 : 0.4,
+                      outline: actualIdx === lightboxIndex ? '2px solid rgba(139,92,246,0.8)' : 'none',
+                      outlineOffset: '2px',
+                    }}
+                  />
+                );
+              });
+            })()}
+          </div>
+
+          {/* Counter */}
+          <p className="absolute top-5 left-1/2 -translate-x-1/2 text-white/25 text-xs tabular-nums">
+            {lightboxIndex + 1} / {screenshotFiles.length}
+          </p>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -433,8 +579,21 @@ const platforms = [
     href: 'https://discord.gg/synaptic',
     stat: '20,000+ Members',
     icon: (
-      <svg width="22" height="22" viewBox="0 0 15 15" fill="currentColor">
-        <path fillRule="evenodd" clipRule="evenodd" d="M5.07451 1.82584C5.03267 1.81926 4.99014 1.81825 4.94803 1.82284C4.10683 1.91446 2.82673 2.36828 2.07115 2.77808C2.02106 2.80525 1.97621 2.84112 1.93869 2.88402C1.62502 3.24266 1.34046 3.82836 1.11706 4.38186C0.887447 4.95076 0.697293 5.55032 0.588937 5.98354C0.236232 7.39369 0.042502 9.08728 0.0174948 10.6925C0.0162429 10.7729 0.0351883 10.8523 0.0725931 10.9234C0.373679 11.496 1.02015 12.027 1.66809 12.4152C2.32332 12.8078 3.08732 13.1182 3.70385 13.1778C3.85335 13.1922 4.00098 13.1358 4.10282 13.0255C4.2572 12.8581 4.5193 12.4676 4.71745 12.1643C4.80739 12.0267 4.89157 11.8953 4.95845 11.7901C5.62023 11.9106 6.45043 11.9801 7.50002 11.9801C8.54844 11.9801 9.37796 11.9107 10.0394 11.7905C10.1062 11.8957 10.1903 12.0269 10.2801 12.1643C10.4783 12.4676 10.7404 12.8581 10.8947 13.0255C10.9966 13.1358 11.1442 13.1922 11.2937 13.1778C11.9102 13.1182 12.6742 12.8078 13.3295 12.4152C13.9774 12.027 14.6239 11.496 14.925 10.9234C14.9624 10.8523 14.9813 10.7729 14.9801 10.6925C14.9551 9.08728 14.7613 7.39369 14.4086 5.98354C14.3003 5.55032 14.1101 4.95076 13.8805 4.38186C13.6571 3.82836 13.3725 3.24266 13.0589 2.88402C13.0214 2.84112 12.9765 2.80525 12.9264 2.77808C12.1708 2.36828 10.8907 1.91446 10.0495 1.82284C10.0074 1.81825 9.96489 1.81926 9.92305 1.82584C9.71676 1.85825 9.5391 1.96458 9.40809 2.06355C9.26977 2.16804 9.1413 2.29668 9.0304 2.42682C8.86968 2.61544 8.7143 2.84488 8.61428 3.06225C8.27237 3.03501 7.90138 3.02 7.5 3.02C7.0977 3.02 6.72593 3.03508 6.38337 3.06244C6.28328 2.84501 6.12792 2.61549 5.96716 2.42682C5.85626 2.29668 5.72778 2.16804 5.58947 2.06355C5.45846 1.96458 5.2808 1.85825 5.07451 1.82584Z" />
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942.0209-.0407.0098-.0895-.0321-.1195-.6519-.2476-1.2754-.5495-1.8784-.8874a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Instagram',
+    description: 'Screenshots, behind-the-scenes previews, and visual development updates.',
+    href: 'https://www.instagram.com/synapticsim/',
+    stat: '@synapticsim',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
       </svg>
     ),
   },
@@ -468,8 +627,8 @@ function CommunitySection() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      className={`py-28 border-t transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-      style={{ borderColor: 'rgba(255,255,255,0.06)' }}
+      className={`py-28 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      style={{ borderTop: '1px solid transparent', borderImage: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent) 1' }}
     >
       <div className="section-container">
         <div className="text-center mb-16">
@@ -487,7 +646,7 @@ function CommunitySection() {
             Join the Community
           </h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {platforms.map((p) => (
             <a
               key={p.name}
@@ -496,16 +655,20 @@ function CommunitySection() {
               rel="noreferrer"
               className="group block rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1"
               style={{
-                background: 'rgba(255,255,255,0.025)',
-                border: '1px solid rgba(255,255,255,0.07)',
+                background: 'rgba(255,255,255,0.03)',
+                border: '1px solid rgba(255,255,255,0.09)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 0 28px rgba(61,21,237,0.1)';
-                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(61,21,237,0.22)';
+                (e.currentTarget as HTMLElement).style.background = 'rgba(61,21,237,0.07)';
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(61,21,237,0.3)';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 0 32px rgba(61,21,237,0.12), inset 0 0 0 1px rgba(61,21,237,0.15)';
               }}
               onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.03)';
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.09)';
                 (e.currentTarget as HTMLElement).style.boxShadow = '';
-                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.07)';
               }}
             >
               <div className="text-white/50 group-hover:text-white transition-colors mb-5">{p.icon}</div>
@@ -526,109 +689,6 @@ function CommunitySection() {
   );
 }
 
-// ─── Final CTA ────────────────────────────────────────────────────────────────
-
-function FinalCTA() {
-  const { ref, visible } = useFadeIn();
-  return (
-    <section
-      ref={ref as React.RefObject<HTMLElement>}
-      className={`py-36 border-t transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-      style={{ borderColor: 'rgba(255,255,255,0.06)' }}
-    >
-      <div className="section-container text-center">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo.svg" alt="" aria-hidden="true" width={38} height={62} className="mx-auto mb-8 opacity-40" />
-        <h2
-          className="font-black tracking-tight mb-5"
-          style={{
-            fontSize: 'clamp(30px, 3.8vw, 52px)',
-            background: 'linear-gradient(140deg, #ffffff 38%, rgba(186,152,255,0.82) 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-          }}
-        >
-          Follow Every Step of Development
-        </h2>
-        <p className="text-white/42 max-w-lg mx-auto mb-10 text-lg leading-relaxed">
-          Join our Discord for the latest showcases, announcements, and direct access to the Synaptic team.
-        </p>
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <a href="https://discord.gg/synaptic" target="_blank" rel="noreferrer" className="btn-primary">
-            <svg width="16" height="16" viewBox="0 0 15 15" fill="currentColor">
-              <path fillRule="evenodd" clipRule="evenodd" d="M5.07451 1.82584C5.03267 1.81926 4.99014 1.81825 4.94803 1.82284C4.10683 1.91446 2.82673 2.36828 2.07115 2.77808C2.02106 2.80525 1.97621 2.84112 1.93869 2.88402C1.62502 3.24266 1.34046 3.82836 1.11706 4.38186C0.887447 4.95076 0.697293 5.55032 0.588937 5.98354C0.236232 7.39369 0.042502 9.08728 0.0174948 10.6925C0.0162429 10.7729 0.0351883 10.8523 0.0725931 10.9234C0.373679 11.496 1.02015 12.027 1.66809 12.4152C2.32332 12.8078 3.08732 13.1182 3.70385 13.1778C3.85335 13.1922 4.00098 13.1358 4.10282 13.0255C4.2572 12.8581 4.5193 12.4676 4.71745 12.1643C4.80739 12.0267 4.89157 11.8953 4.95845 11.7901C5.62023 11.9106 6.45043 11.9801 7.50002 11.9801C8.54844 11.9801 9.37796 11.9107 10.0394 11.7905C10.1062 11.8957 10.1903 12.0269 10.2801 12.1643C10.4783 12.4676 10.7404 12.8581 10.8947 13.0255C10.9966 13.1358 11.1442 13.1922 11.2937 13.1778C11.9102 13.1182 12.6742 12.8078 13.3295 12.4152C13.9774 12.027 14.6239 11.496 14.925 10.9234C14.9624 10.8523 14.9813 10.7729 14.9801 10.6925C14.9551 9.08728 14.7613 7.39369 14.4086 5.98354C14.3003 5.55032 14.1101 4.95076 13.8805 4.38186C13.6571 3.82836 13.3725 3.24266 13.0589 2.88402C13.0214 2.84112 12.9765 2.80525 12.9264 2.77808C12.1708 2.36828 10.8907 1.91446 10.0495 1.82284C10.0074 1.81825 9.96489 1.81926 9.92305 1.82584C9.71676 1.85825 9.5391 1.96458 9.40809 2.06355C9.26977 2.16804 9.1413 2.29668 9.0304 2.42682C8.86968 2.61544 8.7143 2.84488 8.61428 3.06225C8.27237 3.03501 7.90138 3.02 7.5 3.02C7.0977 3.02 6.72593 3.03508 6.38337 3.06244C6.28328 2.84501 6.12792 2.61549 5.96716 2.42682C5.85626 2.29668 5.72778 2.16804 5.58947 2.06355C5.45846 1.96458 5.2808 1.85825 5.07451 1.82584Z" />
-        </svg>
-            Join Discord
-          </a>
-          <a href="https://youtube.com/@SynapticSimulations" target="_blank" rel="noreferrer" className="btn-secondary">
-            Watch on YouTube
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Feature data ─────────────────────────────────────────────────────────────
-
-const features: {
-  eyebrow: string;
-  headline: string;
-  body: string;
-  side: 'left' | 'right';
-  icon: React.ReactNode;
-}[] = [
-  {
-    eyebrow: 'Custom FMS',
-    headline: 'Real-world\nflight planning.',
-    body: 'A fully custom Flight Management Computer with SID/STAR procedures, constraint-based VNAV, lateral navigation, and real-world performance calculations — built entirely from scratch.',
-    side: 'left',
-    icon: (
-      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
-        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-      </svg>
-    ),
-  },
-  {
-    eyebrow: 'Interactive Cockpit',
-    headline: 'Every switch.\nEvery knob.',
-    body: 'Built on the Advanced Cockpit Emulator (ACE) — every button, toggle, and rotary behaves exactly as on the real A220. Nothing is decorative.',
-    side: 'right',
-    icon: (
-      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="3" width="20" height="14" rx="2"/>
-        <line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-      </svg>
-    ),
-  },
-  {
-    eyebrow: 'Aircraft Systems',
-    headline: 'No defaults.\nNo shortcuts.',
-    body: 'Hydraulics, pneumatics, electrical, pressurisation, and fuel systems — all modelled from documentation, with no simulator defaults used anywhere in the chain.',
-    side: 'left',
-    icon: (
-      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-      </svg>
-    ),
-  },
-  {
-    eyebrow: 'Dual Platform',
-    headline: 'MSFS 2020\nand 2024.',
-    body: 'Native compatibility with both Microsoft Flight Simulator 2020 and 2024 — optimised for each platform from the ground up.',
-    side: 'right',
-    icon: (
-      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-        <polyline points="2 17 12 22 22 17"/>
-        <polyline points="2 12 12 17 22 12"/>
-      </svg>
-    ),
-  },
-];
-
 // ─── Export ───────────────────────────────────────────────────────────────────
 
 export function HomePageClient() {
@@ -636,13 +696,10 @@ export function HomePageClient() {
     <div className="pt-16">
       <ScrollZoomHero />
       <StatementSection />
-      <StatsStrip />
-      {features.map((f) => (
-        <FeatureSection key={f.eyebrow} {...f} />
-      ))}
-      <A220CTASection />
+      <TrailerSection />
+      <FeatureListSection />
+      <ShowcaseSection />
       <CommunitySection />
-      <FinalCTA />
     </div>
   );
 }
