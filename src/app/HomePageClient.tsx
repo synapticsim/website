@@ -321,19 +321,12 @@ function TrailerSection() {
 
 const featureItems = [
   'Custom Flight Management System',
-  'CAT III Autoland',
-  'Custom Fly-By-Wire',
-  'Full LNAV & VNAV',
-  'ILS, LPV, RNP/AR, VOR & LOC approaches',
-  'SimBrief & MSFS EFB uplink',
-  'Graphical flight planning',
-  'Data Concentration System',
-  'Five display units with full reversion',
-  'Circuit breakers',
-  'EICAS & synoptic pages',
-  'Electronic checklists',
-  'Nav-to-nav transfer & ILS mode sequencing',
-  'Detailed 3D model with high-fidelity materials',
+  'Custom Fly-By-Wire System',
+  'Faithful Proline Fusion Avionics',
+  'Customizable Electronic Checklists',
+  'Modeling of Systems Component Connections',
+  'SimBrief & MSFS EFB Uplink',
+  'Graphical Flight Planning',
 ];
 
 function FeatureListSection() {
@@ -408,21 +401,6 @@ function ShowcaseSection() {
       style={{ borderTop: '1px solid transparent', borderImage: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent) 1' }}
       >
         <div className="section-container">
-          <div className="text-center mb-10">
-            <h2
-              className="font-black tracking-tight"
-              style={{
-                fontSize: 'clamp(32px, 4vw, 54px)',
-                background: 'linear-gradient(140deg, #ffffff 38%, rgba(186,152,255,0.82) 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              A220
-            </h2>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {displayedFiles.map((file, idx) => (
               <div
@@ -460,12 +438,6 @@ function ShowcaseSection() {
 
           {/* Bottom fade + expand */}
           <div className="relative">
-            {!expanded && screenshotFiles.length > INITIAL_COUNT && (
-              <div
-                className="absolute -top-32 left-0 right-0 h-32 pointer-events-none"
-                style={{ background: 'linear-gradient(to top, #02020a 0%, transparent 100%)' }}
-              />
-            )}
             {!expanded && screenshotFiles.length > INITIAL_COUNT && (
               <div className="text-center mt-8">
                 <button
