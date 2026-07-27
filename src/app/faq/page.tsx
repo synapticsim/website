@@ -18,7 +18,7 @@ const faqs: { category: string; items: { q: string; a: ReactNode }[] }[] = [
       },
       {
         q: 'How much will it cost?',
-        a: 'Pricing will be announced closer to release. Follow our Discord and social channels for official announcements.',
+        a: 'The Synaptic A220 will retail for £49.99 on the Microsoft Flight Simulator Marketplace before applicable taxes.',
       },
       {
         q: 'Which variant of the A220 is being modelled?',
