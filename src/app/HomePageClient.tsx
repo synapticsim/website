@@ -79,6 +79,7 @@ function ScrollZoomHero() {
     const sync = () => {
       if (video.readyState >= 2 && video.duration) {
         video.currentTime = clamp((progress - 0.50) / 0.38, 0, 1) * (video.duration * 0.5);
+        video.pause();
       }
     };
     sync();
@@ -98,6 +99,7 @@ function ScrollZoomHero() {
           ref={videoRef}
           src="/plane-spin.mov"
           preload="auto"
+          autoPlay
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-contain md:object-cover pointer-events-none"
@@ -210,7 +212,16 @@ function ScrollZoomHero() {
                   animation: 'shimmerPulse 2.2s ease-in-out infinite',
                 }}
               >
-                Coming Summer 2026
+                Releasing July 28th, 2026
+              </div>
+              <div
+                className="mt-2 text-center text-white/40 font-medium tracking-wide"
+                style={{
+                  fontSize: 'clamp(11px, 1.4vw, 16px)',
+                  opacity: subOpacity,
+                }}
+              >
+                Exclusively on the Microsoft Flight Simulator Marketplace
               </div>
             </div>
           </div>

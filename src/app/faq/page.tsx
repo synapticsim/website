@@ -22,7 +22,11 @@ const faqs: { category: string; items: { q: string; a: ReactNode }[] }[] = [
       },
       {
         q: 'Which variant of the A220 is being modelled?',
-        a: 'Our release variant is the Synaptic A220-300. The Synaptic A220-100 and Synaptic A220 ACJ will be released after the A220-300 launch.',
+        a: 'Our release variant is the Synaptic A220-300. The Synaptic A220-100 and Synaptic A220 ACJ will be a joint product independent of the A220-300 release.',
+      },
+      {
+        q: 'When are the A220-100 and ACJ variants coming?',
+        a: 'The Synaptic A220-100 and ACJ will be a separate release with many quality of life and feature improvements such as HUD, working circuit breakers in the avionics bay, and many more. Any improvements from this release will arrive for free on the Synaptic A220-300. The variants are currently in active development and we will share more when we are ready to do so.',
       },
       {
         q: 'Will there be liveries?',
