@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     creator: '@SynapticSim',
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: '/favicon.svg',
   },
 };
 
