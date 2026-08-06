@@ -13,6 +13,191 @@ const articles: Record<string, {
   content: React.ReactNode;
 }> = {
 
+  // ── Post-Release Development Update ───────────────────────────────────────
+  'august-dev-update': {
+    slug: 'august-dev-update',
+    date: 'August 6, 2026',
+    category: 'Development Update',
+    title: 'Synaptic A220 - August Development Update',
+    readTime: '8 min read',
+    content: (
+      <>
+        <p>
+          Hey everyone, we&apos;re excited to be back with a quick development snapshot of the A220. A little over one week from release, the response to the Synaptic A220 has meant a huge amount to us. As our first product, seeing so many people flying and enjoying the aircraft, while also pushing it hard enough to uncover issues has been both exciting and humbling. We&apos;ve been working nonstop since launch to improve stability, reliability, and the overall day-to-day experience of flying the A220. At the same time, we also need to address an important issue around systems and avionics crash telemetry, and data collection that was recently brought to our attention.
+        </p>
+
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/news/update-2026-08-06-p1-1.png"
+          alt="Synaptic A220 - August Development Update visual"
+          className="w-full rounded-xl border border-white/10 my-8"
+        />
+
+        <h2>Progress in Review</h2>
+        <p>
+          Since the release of the Synaptic A220, our focus has remained firmly on improving stability, performance, and the overall day-to-day experience. Within the first week, we&apos;ve released several patches up to v1.0.3 to address a wide range of reported issues while introducing several quality-of-life improvements across the aircraft. We&apos;re currently committed to a <strong>weekly</strong> update cycle to keep improving performance for all users across all supported platforms.
+        </p>
+
+        <h2>Stability &amp; Crash Fixes</h2>
+        <p>We have addressed several WASM-related stability issues, including:</p>
+        <ul>
+          <li>Crashes when clearing flight-plan discontinuities</li>
+          <li>Instability during APU starts while operating on battery power</li>
+          <li>Occasional crashes when using the simulator&apos;s native navigation data</li>
+          <li>Localized WASM crashes during normal flight</li>
+        </ul>
+
+        <h2>Navigation &amp; FMS Improvements</h2>
+        <ul>
+          <li>Updated the included Navigraph database to cycle 2503</li>
+          <li>Added navigation database selection through the FMS DBASE STATUS page</li>
+          <li>Refined flight-plan discontinuity and route-handling logic</li>
+          <li>Corrected Direct-To FAF behaviour and magnetic variation on displayed courses</li>
+          <li>Improved validation of zero-fuel weight, altitude and SimBrief username entries</li>
+          <li>Refined the layout and usability of the ARRIVAL DATA and ROUTE pages</li>
+        </ul>
+
+        <h2>Avionics &amp; Aircraft Systems</h2>
+        <ul>
+          <li>Resolved issues affecting terrain rendering on the ND</li>
+          <li>Corrected abnormal engine indications related to ambient EGT</li>
+          <li>Fine-tuned autobrake behaviour during de-rotation</li>
+          <li>Corrected checklist logic and several cockpit indications</li>
+          <li>Resolved flight-phase reset issues during aircraft turnarounds</li>
+        </ul>
+
+        <h2>Performance &amp; Art Optimization</h2>
+        <p>
+          An optimization pass has been conducted across the cockpit and cabin, a part of a greater model/art optimization plan which will span the next few weeks:
+        </p>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/news/update-2026-08-06-p3-1.png"
+          alt="Performance and art optimization visual"
+          className="w-full rounded-xl border border-white/10 my-6"
+        />
+        <ul>
+          <li>Reduced model node counts and improved LOD switching</li>
+          <li>Reduced unnecessary shadow rendering and introduced additional object instancing</li>
+          <li>Reworked parts of the cockpit model structure to lessen camera-panning stutters</li>
+        </ul>
+
+        <h2>EFB Improvements</h2>
+        <ul>
+          <li>Added an advisory when time acceleration is active</li>
+          <li>Corrected landing distances produced by the landing-performance calculator</li>
+          <li>Improved Navigraph authentication persistence between flights</li>
+          <li>Changed default GPU auto-disconnection behaviour to prevent tripped circuit breakers and AUTO FLIGHT FAULT advisories upon pushback.</li>
+        </ul>
+
+        <h2>Flight-Model Refinements</h2>
+        <ul>
+          <li>Adjusted landing-gear compression for more realistic ground handling</li>
+          <li>Reduced excessive gear softness during takeoff and landing</li>
+        </ul>
+
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/news/update-2026-08-06-p4-1.png"
+          alt="Sentry and data collection overview visual"
+          className="w-full rounded-xl border border-white/10 my-6"
+        />
+
+        <h2>What&apos;s Coming in v1.0.4</h2>
+        <p>
+          We&apos;ve wrapped up v1.0.4 for the Synaptic A220 and have submitted the build to Microsoft. The changelog for this patch is now available, and we are expecting release next week! This update continues our focus on stability, performance and everyday usability. Highlights currently include:
+        </p>
+        <ul>
+          <li>A new Terrain Map Launcher with tray-app controls and more accessible troubleshooting</li>
+          <li>Further passes on the ND and EICAS to seek out performance improvements</li>
+          <li>FMS and navigation fixes covering route drawing, intercept logic, discontinuities and top-of-descent behaviour</li>
+          <li>Engine and APU fixes, including abnormal engine-start indications and APU sequencing issues</li>
+          <li>Cockpit indication corrections across the PFD, TCAS, radios and aircraft-information pages</li>
+          <li>Improved performance on the EFB LOADSHEET page</li>
+          <li>Additional logic corrections, including preventing aircraft doors from being opened in flight</li>
+          <li>Model node count reductions and art optimizations targeting performance</li>
+          <li>More improvements detailed at <a href="https://docs.synapticsim.com/changelog" target="_blank" rel="noreferrer">https://docs.synapticsim.com/changelog</a></li>
+        </ul>
+
+        <h2>Sentry &amp; Data Collection</h2>
+        <p>
+          To help us quickly diagnose and fix issues, we implemented Sentry on the Synaptic A220 to assist with development and testing. Sentry is a self-hosted software platform that provides telemetry and release health monitoring capabilities.
+        </p>
+        <p>
+          We integrated the Sentry SDK into the Synaptic A220 avionics code to help us capture diagnostic information when users experience issues such as:
+        </p>
+        <ul>
+          <li>WASM crashes</li>
+          <li>MFW soft crashes</li>
+          <li>Other runtime errors</li>
+        </ul>
+        <p>
+          When a crash occurs, Sentry allows us to see the exact line of code that triggered the issue. This is incredibly valuable for the programming team to quickly turnaround issues and push out patches quicker than conventional workflows where the developer will try and reproduce the issue to eventually fix it.
+        </p>
+        <p>
+          Without it, we are often left guessing at potential causes or relying on users to manually retrieve developer logs. Sentry also tracks session health (via “heartbeat” pings) so we can compare aircraft versions and measure stability improvements between releases.
+        </p>
+        <p>
+          We have changed how this works from initial release, and we’d like to detail how things will be going forward. In prior versions, when the aircraft was loaded and periodically during a session, a basic “session heartbeat” was sent. If a crash occurred, a payload was sent containing:
+        </p>
+        <ul>
+          <li>The error message</li>
+          <li>The source line of code responsible</li>
+          <li>Platform (2024-PC, 2024-Xbox, 2020-PC, 2020-Xbox)</li>
+          <li>Aircraft version</li>
+          <li>Timestamp</li>
+          <li>A unique user identifier (UUID) which previously was the user&apos;s gamertag.</li>
+        </ul>
+
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/news/update-2026-08-06-p5-1.png"
+          alt="Telemetry policy changes visual"
+          className="w-full rounded-xl border border-white/10 my-6"
+        />
+
+        <p>
+          As a self-hosted system, all data remains strictly under Synaptic Simulations&apos; direct control at all times and is not accessed by any other third parties.
+        </p>
+        <p>
+          After conducting an internal review, we believe we need to do this in a better way. As of v1.0.3, Sentry is no longer active on the Synaptic A220 and all previous crash data collected has been deleted.
+        </p>
+        <p>
+          Firstly, we believe the use of the Xbox gamertag as the unique user identifier is not appropriate and as a result, as of v1.0.3 onwards we instead will use an anonymous UUID4 derived from a salted hash of the gamertag. This hash is not reversible and depends on a secret salt value stored only on the user&apos;s machine.
+        </p>
+        <p>
+          Secondly, <strong>starting with v1.0.5, users will be presented with a clear opt-in screen within the aircraft (EFB/System menu)</strong> before any telemetry is activated. <strong>No data will be transmitted unless consent is provided.</strong>
+        </p>
+
+        <p>
+          <strong>There is no crash data collected for the duration of v1.0.3 and v1.0.4</strong>, so please report issues conventionally through the issues board on our Discord server.
+        </p>
+        <p>
+          We want to clearly apologise for the oversight. As Sentry was a core part of our testing and internal QA process, we overlooked that gamertags were being captured as part of this process. The focus was on the crash data, error messages, pertaining code lines and stability metrics.
+        </p>
+        <p>
+          This was a learning curve, and we are committed to improving our processes as we grow. Our intention has always been to diagnose and resolve customer issues efficiently, and to handle any data involved with care and respect for user privacy.
+        </p>
+        <p>
+          Crash telemetry is invaluable for performance and stability improvement and we are committed to doing it correctly and transparently. Sentry helps our team aggregate commonly reported issues and provides a clear workflow to resolution, leading to faster updates for all customers.
+        </p>
+        <p>
+          We&apos;d like to restate our commitment to learning, listening and working on doing better to deliver the best A220 experience for you all. Our team is always eager to help with your A220 concerns and questions, and we hope our next series of updates through the weeks improve the A220 user experience for everyone!
+        </p>
+        <p>
+          Regards,<br />Synaptic Team
+        </p>
+
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/screenshots/30.png"
+          alt="Synaptic A220 sign-off image"
+          className="w-full rounded-xl border border-white/10 my-6"
+        />
+      </>
+    ),
+  },
+
   // ── FSExpo Update ──────────────────────────────────────────────────────────
   'fsexpo-update': {
     slug: 'fsexpo-update',
