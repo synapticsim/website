@@ -17,8 +17,8 @@ const faqs: { category: string; items: { q: string; a: ReactNode }[] }[] = [
         a: "The Synaptic A220 is a high-fidelity simulation of the Airbus A220 (formerly Bombardier C-Series) for Microsoft Flight Simulator 2020 and 2024.",
       },
       {
-        q: 'How much will it cost?',
-        a: 'The Synaptic A220 will retail for £49.99 on the Microsoft Flight Simulator Marketplace before applicable taxes.',
+        q: 'How much does it cost?',
+        a: 'The Synaptic A220 retails for $64.99 USD on the Microsoft Flight Simulator Marketplace before applicable taxes.',
       },
       {
         q: 'Which variant of the A220 is being modelled?',
@@ -39,7 +39,7 @@ const faqs: { category: string; items: { q: string; a: ReactNode }[] }[] = [
     items: [
       {
         q: 'When will the Synaptic A220 be released?',
-        a: "The Synaptic A220 is planned for release in summer of 2026.",
+        a: 'The Synaptic A220 is now available to purchase on the Microsoft Flight Simulator Marketplace for $64.99 USD before applicable taxes.',
       },
       {
         q: 'Why has development taken this long?',

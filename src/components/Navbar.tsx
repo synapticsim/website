@@ -29,15 +29,13 @@ export function Navbar() {
           {/* Desktop Nav — truly centered */}
           <nav className="hidden md:flex items-center justify-center gap-1">
             {navLinks.map((link) =>
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
-                target="_blank"
-                rel="noreferrer"
                 className="px-4 py-2 rounded-md text-sm font-medium transition-colors text-white/60 hover:text-white hover:bg-white/5"
               >
                 {link.label}
-              </a>
+              </Link>
             )}
           </nav>
 
@@ -83,16 +81,14 @@ export function Navbar() {
         <div className="md:hidden border-t border-white/10 bg-black/95">
           <nav className="section-container py-4 flex flex-col gap-1">
             {navLinks.map((link) =>
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
-                target="_blank"
-                rel="noreferrer"
                 onClick={() => setMenuOpen(false)}
                 className="px-4 py-3 rounded-md text-sm font-medium transition-colors text-white/60 hover:text-white hover:bg-white/5"
               >
                 {link.label}
-              </a>
+              </Link>
             )}
             <a
               href="https://discord.gg/synaptic"

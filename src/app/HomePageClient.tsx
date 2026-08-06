@@ -212,7 +212,7 @@ function ScrollZoomHero() {
                   animation: 'shimmerPulse 2.2s ease-in-out infinite',
                 }}
               >
-                Releasing July 28th, 2026
+                Available Now
               </div>
               <div
                 className="mt-2 text-center text-white/40 font-medium tracking-wide"
