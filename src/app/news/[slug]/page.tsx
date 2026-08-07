@@ -118,6 +118,29 @@ const articles: Record<string, {
           <li>More improvements detailed at <a href="https://docs.synapticsim.com/changelog" target="_blank" rel="noreferrer">https://docs.synapticsim.com/changelog</a></li>
         </ul>
 
+        <h2>Looking Forward</h2>
+        <p>
+          We&apos;re already hard at work on v1.0.5, and are actively hunting down new bugs and making improvements to our flight management and guidance systems. Here's what you can look forward to:
+        </p>
+        <ul>
+          <li>Improved handling of constraints on complicated procedures with more pilot involvement</li>
+          <li>Improved guidance in holding patterns</li>
+          <li>Better missed approach handling</li>
+          <li>More realistic FMA mode sequencing and transitions</li>
+          <li>More accurate time enroute, fuel burn, and deceleration predictions</li>
+          <li>Fixed wildly incorrect distance and time estimates for flight plan destination</li>
+          <li>Automatically displayed non-normal checklists based on CAS messages</li>
+          <li>Support for deferred, follow-on, and timed items in checklists</li>
+          <li>More exposed varaibles and tighter integration with third-party software</li>
+        </ul>
+
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+            src="/screenshots/31.png"
+            alt="Synaptic A220 flight deck"
+            className="w-full rounded-xl border border-white/10 my-6"
+        />
+
         <h2>Sentry &amp; Data Collection</h2>
         <p>
           To help us quickly diagnose and fix issues, we implemented Sentry on the Synaptic A220 to assist with development and testing. Sentry is a self-hosted software platform that provides telemetry and release health monitoring capabilities.
