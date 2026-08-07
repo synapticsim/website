@@ -19,7 +19,7 @@ const articles: Record<string, {
     date: 'August 6, 2026',
     category: 'Development Update',
     title: 'Synaptic A220 - August Development Update',
-    readTime: '8 min read',
+    readTime: '5 min read',
     content: (
       <>
         <p>
