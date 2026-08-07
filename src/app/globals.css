@@ -123,7 +123,7 @@
 
   /* Article body typography */
   .prose-article {
-    @apply text-white/70 leading-relaxed;
+    @apply text-white/80 leading-relaxed;
   }
   .prose-article p {
     @apply mb-6 text-base sm:text-lg leading-[1.8];
@@ -138,7 +138,7 @@
     @apply mb-6 space-y-2 pl-5 list-disc list-outside;
   }
   .prose-article li {
-    @apply text-base sm:text-lg leading-[1.8] text-white/70;
+    @apply text-base sm:text-lg leading-[1.8];
   }
   .prose-article strong {
     @apply text-white font-semibold;

@@ -7,13 +7,23 @@ export const metadata: Metadata = {
 
 const newsItems = [
   {
+    url: '/news/august-dev-update',
+    date: 'August 6, 2026',
+    category: 'Development Update',
+    title: 'Synaptic A220 - August Development Update',
+    summary: 'A post-release development snapshot covering stability fixes, navigation and FMS improvements, performance work, EFB updates, and upcoming v1.0.4 changes.',
+    image: '/news/update-2026-08-06-p1-1.png',
+    featured: true,
+    listed: true,
+  },
+  {
     url: 'https://forum.inibuilds.com/topic/36970-synaptic-a220-development-update-june-2026/',
     date: 'June 16, 2026',
     category: 'Development Update',
     title: 'Synaptic A220 Development Update — June 2026',
     summary: 'FSExpo 2026 wrap-up, a fully rewritten FMS, CAT III autoland, RNP/AR approaches, detailed visuals, the iconic engine howl by Echo19, and a look at what remains before release.',
     image: '/news/june-2026.png',
-    featured: true,
+    featured: false,
   },
   {
     url: 'https://forum.inibuilds.com/topic/30864-synaptic-a220-fsexpo-update/',
@@ -50,8 +60,10 @@ const categoryColors: Record<string, string> = {
 };
 
 export default function NewsPage() {
-  const featured = newsItems.find((n) => n.featured);
-  const rest = newsItems.filter((n) => !n.featured);
+  const isExternalUrl = (url: string) => /^https?:\/\//.test(url);
+  const visibleNewsItems = newsItems.filter((n) => n.listed !== false);
+  const featured = visibleNewsItems.find((n) => n.featured);
+  const rest = visibleNewsItems.filter((n) => !n.featured);
 
   return (
     <div className="pt-16">
@@ -70,7 +82,12 @@ export default function NewsPage() {
         {/* Featured */}
         {featured && (
           <div className="mb-10">
-            <a href={featured.url} target="_blank" rel="noreferrer" className="group block">
+            <a
+              href={featured.url}
+              target={isExternalUrl(featured.url) ? '_blank' : undefined}
+              rel={isExternalUrl(featured.url) ? 'noreferrer' : undefined}
+              className="group block"
+            >
               <div
                 className="card-surface overflow-hidden hover:border-white/20 transition-all"
                 style={{ display: 'grid', gridTemplateRows: 'auto 1fr' }}
@@ -100,7 +117,7 @@ export default function NewsPage() {
                   <div className="flex items-center justify-between flex-wrap gap-4">
                     <span className="text-sm text-white/30">{featured.date}</span>
                     <span className="text-sm text-violet-400 font-medium flex items-center gap-1.5">
-                      Read on iniBuilds forum
+                      {isExternalUrl(featured.url) ? 'Read on iniBuilds forum' : 'Read update'}
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
                       </svg>
@@ -115,7 +132,13 @@ export default function NewsPage() {
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {rest.map((item) => (
-            <a key={item.url} href={item.url} target="_blank" rel="noreferrer" className="group block">
+            <a
+              key={item.url}
+              href={item.url}
+              target={isExternalUrl(item.url) ? '_blank' : undefined}
+              rel={isExternalUrl(item.url) ? 'noreferrer' : undefined}
+              className="group block"
+            >
               <div className="card-surface overflow-hidden hover:border-white/20 transition-all h-full flex flex-col">
                 {/* Thumbnail */}
                 <div className="relative overflow-hidden flex-shrink-0" style={{ height: '180px' }}>
