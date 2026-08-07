@@ -54,7 +54,6 @@ const articles: Record<string, {
           <li>Refined flight-plan discontinuity and route-handling logic</li>
           <li>Corrected Direct-To FAF behaviour and magnetic variation on displayed courses</li>
           <li>Improved validation of zero-fuel weight, altitude and SimBrief username entries</li>
-          <li>Refined the layout and usability of the ARRIVAL DATA and ROUTE pages</li>
         </ul>
 
         <h2>Avionics &amp; Aircraft Systems</h2>
@@ -160,17 +159,17 @@ const articles: Record<string, {
           As a self-hosted system, all data remains strictly under Synaptic Simulations&apos; direct control at all times and is not accessed by any other third parties.
         </p>
         <p>
-          After conducting an internal review, we believe we need to do this in a better way. As of v1.0.3, Sentry is no longer active on the Synaptic A220 and all previous crash data collected has been deleted.
+          After conducting an internal review, we believe we need to do this in a better way. As of v1.0.3, Sentry is no longer active on the Synaptic A220 and all previous crash data collected has been deleted. Sentry will continue to be inactive for v1.0.4.
         </p>
         <p>
-          Firstly, we believe the use of the Xbox gamertag as the unique user identifier is not appropriate and as a result, as of v1.0.3 onwards we instead will use an anonymous UUID4 derived from a salted hash of the gamertag. This hash is not reversible and depends on a secret salt value stored only on the user&apos;s machine.
+          Firstly, we believe the use of the Xbox gamertag as the unique user identifier is not appropriate and as a result, all telemetry data will be strictly anonymous moving forward.
         </p>
         <p>
-          Secondly, <strong>starting with v1.0.5, users will be presented with a clear opt-in screen within the aircraft (EFB/System menu)</strong> before any telemetry is activated. <strong>No data will be transmitted unless consent is provided.</strong>
+          Secondly, starting with v1.0.5, <strong>users will be presented with a clear opt-in screen within the aircraft</strong> before any telemetry is activated. <strong>No data will be transmitted unless consent is provided.</strong>
         </p>
 
         <p>
-          <strong>There is no crash data collected for the duration of v1.0.3 and v1.0.4</strong>, so please report issues conventionally through the issues board on our Discord server.
+          <strong>There is no crash data collected for the duration of v1.0.3 and v1.0.4</strong>, so please report issues conventionally through the issues board on our Discord server and provide as much information as possible to help us replicate your bugs.
         </p>
         <p>
           We want to clearly apologise for the oversight. As Sentry was a core part of our testing and internal QA process, we overlooked that gamertags were being captured as part of this process. The focus was on the crash data, error messages, pertaining code lines and stability metrics.
